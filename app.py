@@ -1,11 +1,11 @@
 from flask import Flask , render_template
-
+from data import Articles
 
 app = Flask(__name__)
 
 app.debug = True # 개발할때만 True 고 평소엔 False 해킹위험
 
-@app.route('/data', methods=['GET']) # 데코, 기본 경로는 안써도 되고 그 뒤에 연결
+@app.route('/', methods=['GET']) # 데코, 기본 경로는 안써도 되고 그 뒤에 연결
 # GET쓸땐 methods 생략 가능
 def index(): # 함수로 처리
     # return "Hello World!"
@@ -20,8 +20,9 @@ def about():
 
 @app.route('/articles')
 def articles():
-    return render_template("articles.html", hello="Gary kim")
-
+    articles = Articles() # data.py 의 articles함수 받아오기
+    # print(articles[0]['title'])
+    return render_template("articles.html", articles=articles) # articles 함수 실행
 
 if __name__ == '__main__': # 위에 다른 코드가 있어도 가장 먼저
     app.run()
