@@ -24,5 +24,12 @@ def articles():
     # print(articles[0]['title'])
     return render_template("articles.html", articles=articles) # articles 함수 실행
 
+@app.route('/article/<int:id>') # params <변수명> 
+def article(id):
+    articles = Articles()
+    article = articles[id-1]
+    print(articles[id-1])
+    return render_template("article.html", article = article)
+
 if __name__ == '__main__': # 위에 다른 코드가 있어도 가장 먼저
     app.run()
