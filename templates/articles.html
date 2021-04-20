@@ -4,7 +4,7 @@
     <h1 class="display-4">ARTICLES PAGE</h1>
     <p class="lead">This Application is build using by python and Flask Framework</p>
     <hr class="my-4">
-    <table class="table">
+    <!-- <table class="table">
         <thead class="thead-dark">
           <tr>
             <th scope="col">id</th>
@@ -15,7 +15,7 @@
             <th scope="col">EDIT</th>
           </tr>
         </thead>
-      </table>
+      </table> -->
       <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table mr-1"></i>
@@ -47,19 +47,23 @@
                     <tbody>
                       {% for article in articles %}
                         <tr>
-                          <th scope="row">{{ article['id'] }}</th>
-                          <td><a href="/article/{{ article['id'] }}">{{ article['title'] }}</a>></td>
-                          <td>{{ article['body'] }}</td>
-                          <td>{{ article['author'] }}</td>
-                          <td>{{ article['create_date'] }}</td>
-                          <td><button type="button" class="btn btn-danger">Edit</button></td>
-                        </tr>
+                          <th scope="row">{{ article[0] }}</th>
+                          <td><a href="/article/{{ article[0] }}">{{ article[1] }}</a></td>
+                          <td>{{ article[2] }}</td>
+                          <td>{{ article[3] }}</td>
+                          <td>{{ article[4] }}</td>
+                          <td>
+                            <button type="button" class="btn btn-warning">Edit</button>
+                            <form action="/delete/{{ article[0] }}" style="margin-top: 10%;" method="POST" onsubmit="return confirm('')">
+                            <button type="submit" class="btn btn-danger">DEL</button>
+                          </form>
+                        </td>
                     {% endfor %}
                       </tbody>
                     </table>
                     </div>
                     </div>
                     </div>
-    <a class="btn btn-warning btn-lg" href="#" role="button">Learn more</a>
+    <a class="btn btn-warning btn-lg" href="/add_articles" role="button">글쓰기</a>
   </div>
 {% endblock %}
