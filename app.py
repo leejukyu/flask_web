@@ -131,22 +131,26 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-  cursor = db.cursor()
-  if request.method == "POST":
-    usersname = request.form['username']
-    userpw_1 = request.form['userpw']
-    # print(userpw_1) # 1234
-    # print(request.form['username']) # 1@naver.com
-    sql = 'SELECT * FROM users WHERE email = %s;'
-    input_data = [usersname]
-    cursor.execute(sql, input_data)
-    userpw = cursor.fetchone()
-    print(userpw[0])
-    if sha256_crypt.verify(userpw_1, userpw[0]): 
-      return "success"
+    cursor = db.cursor()
+    if request.method == "POST":
+        email = request.form['email']
+        userpw_1 = request.form['userpw']
+        # print(userpw_1) # 1234
+        # print(request.form['username']) # 1@naver.com
+        sql = 'SELECT * FROM users WHERE email = %s;'
+        input_data = [email]
+        cursor.execute(sql, input_data)
+        user = cursor.fetchone()
+        if user == None:
+            print(user)
+            return redirect('/register')      
+        else:
+            if sha256_crypt.verify(userpw_1, user[4]): 
+                return redirect("/articles")
+            else:
+                return user[4]
     else:
-      return userpw[0]
-
+        return render_template("login.html")  
 if __name__ == '__main__': # 위에 다른 코드가 있어도 가장 먼저
     app.run()
 
