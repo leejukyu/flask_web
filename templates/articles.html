@@ -53,7 +53,7 @@
                           <td>{{ article[3] }}</td>
                           <td>{{ article[4] }}</td>
                           <td>
-                            <button type="button" class="btn btn-warning">Edit</button>
+                            <a href="/{{ article[0] }}/edit"><button type="button" class="btn btn-warning">Edit</button></a>
                             <form action="/delete/{{ article[0] }}" style="margin-top: 10%;" method="POST" onsubmit="return confirm('')">
                             <button type="submit" class="btn btn-danger">DEL</button>
                           </form>
