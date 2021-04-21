@@ -44,7 +44,7 @@ def articles():
     # print(articles[0]['title'])
     return render_template("articles.html", articles = topics) # articles 함수 실행
 
-@app.route('/article/<int:id>') # params <변수명> 
+@app.route('/article/<int:id>') # params <변수명> 아이디 번호로
 def article(id):
     cursor = db.cursor()
 
@@ -91,10 +91,15 @@ def delete(id):
 
 @app.route('/<int:id>/edit', methods=["GET","POST"])
 def edit(id):
+    cursor = db.cursor()
     if request.method == "POST":
         return  "Success"
     else:
-        return render_template("edit_article.html")
+        sql = 'SELECT * FROM topic WHERE id = {}'.format(id)
+        cursor.execute(sql)
+        topic = cursor.fetchone()
+        print(topic[1])
+        return render_template("edit_article.html", article = topic)
 
 if __name__ == '__main__': # 위에 다른 코드가 있어도 가장 먼저
     app.run()
